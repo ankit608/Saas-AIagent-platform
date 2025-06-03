@@ -13,6 +13,7 @@ import {useForm}from "react-hook-form"
 import { authClient } from "@/lib/auth-client"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
+import {FaGoogle,FaGithub} from "react-icons/fa"
 
 const formSchema = z.object({
 email: z.string().email(),
@@ -35,11 +36,12 @@ const SignInview = () => {
         setError(null)
         const {error} = await authClient.signIn.email({
              email: data.email,
-             password: data.password
+             password: data.password,
+             callbackURL:"/"
         },{
              onSuccess: ()=>{
                 setPending(false)
-                 router.push("/");
+               
              },
 
              onError:(error)=>{
@@ -101,6 +103,7 @@ const SignInview = () => {
 
              <Button disabled={pending} type="submit" className=" w-full">
                 Sign-In
+           
              </Button>
              <div className=" after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0  after:flex after:items-center after:border-t ">
              <span className=" bg-card text-muted-foreground relative z-10 px-2">
@@ -108,11 +111,30 @@ const SignInview = () => {
              </span>
              </div>
              <div className=" grid grid-cols-2 gap-4">
-                <Button variant="outline" typeof="buton" className="w-full">
+                <Button disabled ={pending} variant="outline" typeof="buton" className="w-full"  onClick={()=>{
+                      setPending(true)
+                     authClient.signIn.social({
+                         provider:"google",
+                         callbackURL:"/"
+                     }).then(()=>{
+                          setPending(false)
+                     })
+                 }}>
+                  
                     Google
+                      <FaGoogle></FaGoogle>
                 </Button>
-                 <Button variant="outline" typeof="buton" className="w-full">
+                 <Button disabled={pending} variant="outline" typeof="buton" className="w-full" onClick={()=>{
+                     setPending(true)
+                     authClient.signIn.social({
+                        callbackURL:"/",
+                         provider:"github"
+                     }).then(()=>{
+                          setPending(false)
+                     })
+                 }}>
                     Github
+                         <FaGithub></FaGithub>
                 </Button>
              </div>
              <div  className=" text-center text-sm">
