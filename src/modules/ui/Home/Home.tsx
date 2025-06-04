@@ -9,13 +9,11 @@ import { useTRPC } from "@/app/trpc/client";
 import { useQuery } from "@tanstack/react-query";
 
 export default function Home() {
-    const trpc = useTRPC()
 
-    const {data} = useQuery(trpc.hello.queryOptions({text:"Ankit"}))
 
  return(
   <div>
-   {data?.greeting}
+    Home page
   </div>
   )
 }
