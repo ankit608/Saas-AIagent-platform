@@ -60,10 +60,10 @@ const DashboardSidebar = () => {
                     <SidebarMenu>
                         {firstSection.map((items)=>{
                              return(
-                                <SidebarMenuItem className={cn("h-10 hoverbg:-linear-to-r/oklch border-transparent hover:border-[#5D6B68]/10 from-sidebar-accent from-5% via-30% via-sidebar/50 to-sidebar/50",
+                                <SidebarMenuItem key={items.href}>
+                                  <SidebarMenuButton asChild className={cn("h-10  border-transparent hover:border-[#5D6B68]/10 from-sidebar-accent via-sidebar/50 to-sidebar/50",
                                     pathname===items.href && "bg-linear-to-r/oklch border-[5D6868]/10"
-                                )} key={items.href}>
-                                  <SidebarMenuButton asChild className=' font-semibold' isActive={pathname===items.href}>
+                                )}  isActive={pathname===items.href}>
                                     
                                     <Link href={items.href} className='flex gap-4'>
                                     <items.icon className='size-5'></items.icon>
@@ -82,7 +82,7 @@ const DashboardSidebar = () => {
                     <SidebarMenu>
                         {SecondSection.map((items)=>{
                              return(
-                                <SidebarMenuItem className={cn("h-10 hoverbg:-linear-to-r/oklch border-transparent hover:border-[#5D6B68]/10 from-sidebar-accent from-5% via-30% via-sidebar/50 to-sidebar/50",
+                                <SidebarMenuItem className={cn("h-10 hover:bg-linear-to-r/oklch border-transparent hover:border-[#5D6B68]/10 from-sidebar-accent from-5% via-30% via-sidebar/50 to-sidebar/50",
                                     pathname===items.href && "bg-linear-to-r/oklch border-[5D6868]/10"
                                 )} key={items.href}>
                                   <SidebarMenuButton asChild className=' font-semibold' isActive={pathname===items.href}>

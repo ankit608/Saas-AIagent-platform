@@ -34,7 +34,7 @@ export const GeneratedAvatar=({
 
      return(
         <Avatar className={cn(className)}>
-            <AvatarImage src={avatar.toDataUri()} alt=" avatar"></AvatarImage>
+            <AvatarImage className=" rounded-full" src={avatar.toDataUri()} height={50} width={50} alt=" avatar"></AvatarImage>
             <AvatarFallback>{seed.charAt(0).toUpperCase()}</AvatarFallback>
         </Avatar>
      )
