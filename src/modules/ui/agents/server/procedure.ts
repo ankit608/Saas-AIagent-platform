@@ -11,9 +11,36 @@ import { eq, getTableColumns, sql , and, ilike, desc, count} from "drizzle-orm";
 import page from "@/app/(dashboard)/page";
 import { Search } from "lucide-react";
 import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE, MAX_PAGE_SIZE, MIN_PAGE_SIZE } from "@/constant";
+import { agentsUpdateSchema } from "../schema";
 
 
 export const agentsRouter = createTRPCRouter({
+     
+     update: protectedProcedure.input(agentsUpdateSchema).mutation(async({ctx,input})=>{
+         const updatedAgnet = await db.update(agents).set(input).where(and(eq(agents.id,input.id),eq(agents.userId,ctx.auth.user.id))).returning() 
+              if(!updatedAgnet){
+                throw new TRPCError({
+                     code:"NOT_FOUND",
+                     message: "Agent not found"
+                })
+          }
+
+          return updatedAgnet;
+     }),
+
+     remove: protectedProcedure.input(z.object({id:z.string()})).mutation(async({ctx,input})=>{
+          const removeAgent = await db.delete(agents).where(and( eq(agents.id,input.id), eq(agents.userId, ctx.auth.user.id))).returning();
+
+          if(!removeAgent){
+                throw new TRPCError({
+                     code:"NOT_FOUND",
+                     message: "Agent not found"
+                })
+          }
+        
+          return removeAgent;
+
+     }),
      getOne: protectedProcedure.input(z.object({id:z.string()})).query(async({input,ctx})=>{
            const [existingAgent] = await db.select({
                    meetingCount: sql<number> `5`,

@@ -43,15 +43,3 @@ export const AgentsView = () =>{
      )
 }
 
-export const AgentsViewLoading = () =>{
-    return (
-      <LoadingState title="Loading Agents" description="This may take Few seconds"></LoadingState>
-    )
-}
-
-
-export const AgentsViewError = () =>{
-    return (
-        <ErrorState title="Error Loading Agents" description="Something went wrong"></ErrorState>
-    )
-}
