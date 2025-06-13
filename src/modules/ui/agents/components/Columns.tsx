@@ -46,7 +46,7 @@ export const columns: ColumnDef<AgentGetOne>[] = [
             <VideoIcon className="text-blue-700 ">
        
             </VideoIcon>
-            5 meetings
+            {row.original.meetingCount} meetings
           </Badge>
         )
           

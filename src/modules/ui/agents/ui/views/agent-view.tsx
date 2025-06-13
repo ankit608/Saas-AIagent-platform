@@ -9,26 +9,49 @@ import { Button } from "@/components/ui/button"
 import { DataTable } from "../../components/data-table"
 import {columns} from "../../components/Columns"
 import { EmptyState } from "@/components/ui/empty-state"
-
+import { useAgentsFilters } from "../../hooks/use-agents-filters"
+import DataPagination from "../../components/DataPagination"
+import { useRouter } from "next/navigation"
 
 
 
 export const AgentsView = () =>{
+   const router = useRouter()
+    const [filters,setFilters] = useAgentsFilters();
      const trpc = useTRPC()
 
-     const{data} = useSuspenseQuery(trpc.agents.getMany.queryOptions());
+     const{data} = useSuspenseQuery(trpc.agents.getMany.queryOptions({
+         ...filters
 
-     console.log(data,"sldfhsdkl")
+     }));
+        
+
+           console.log(data,"dfhsk")
+
      
 
      return(
         <div className=" flex-1 pd-4 px-4 md:px-8 flex flex-col gap-y-4">
       
-        <DataTable data={data} columns={columns}></DataTable>
+        <DataTable data={data.items} columns={columns} onRowClick={(row)=>{router.push(`/agents/${row.id}`)}}></DataTable>
+        <DataPagination page={filters.page} totalPages={data.totalPages} onPageChange={(page)=>setFilters({page})}></DataPagination>
 
-        {data.length===0 && (
+        {data.items.length===0 && (
             <EmptyState title="create your first agent" description="Create an agent in your meeting.Each agent will follow your instruction and can Interact with participants during the call"></EmptyState>
         )}
         </div>
      )
+}
+
+export const AgentsViewLoading = () =>{
+    return (
+      <LoadingState title="Loading Agents" description="This may take Few seconds"></LoadingState>
+    )
+}
+
+
+export const AgentsViewError = () =>{
+    return (
+        <ErrorState title="Error Loading Agents" description="Something went wrong"></ErrorState>
+    )
 }
