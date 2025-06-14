@@ -5,10 +5,22 @@ import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 import { ErrorBoundary } from 'react-error-boundary';
 import { LoadingState } from "@/components/ui/loading-state";
 import { ErrorState } from "@/components/ui/error-state";
+import MeetingsHeader from '@/modules/meetings/components/MeetingsListHeaders';
+import { auth } from '@/lib/auth';
+import { headers } from 'next/headers';
+import { redirect } from 'next/navigation';
 
 
 
-const page = () => {
+const page = async () => {
+
+    const session = auth.api.getSession({
+         headers: await headers()
+    })
+
+    if(!session){
+         redirect("/sign-in")
+    }
 
 const  queryClient = getQueryClient();
 
@@ -17,6 +29,7 @@ void queryClient.prefetchQuery(
 )
   return (
     <div>
+        <MeetingsHeader></MeetingsHeader>
         <HydrationBoundary state={dehydrate(queryClient)}>
             <Suspense fallback={<MeetingViewLoading></MeetingViewLoading>} >
                  <ErrorBoundary fallback={<MeetingViewError></MeetingViewError>}>
