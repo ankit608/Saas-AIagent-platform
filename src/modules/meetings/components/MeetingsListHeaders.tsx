@@ -4,10 +4,28 @@ import React, { useState } from 'react'
 import { PlusIcon, XCircleIcon } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import NewMeetingtDialouge from './NewMeetingDialouge'
+import MeetingSearchFilter from './MeetingFilter'
 import { DEFAULT_PAGE } from '@/constant'
+import { MeetingStatus } from '../types'
+import { StatusFilter } from './meetingStatusFilter'
+import MeetingAgentIdFilter from './MeetingAgentFilter'
+import UseMeeting from './hooks/UseMeeting'
 
 const MeetingsHeader = () => {
   const [isDialogOpen,setisDialougeOpen] = useState(false)
+  const [filters, setFilter] = UseMeeting()
+
+  const isAnyFilterModified = !!filters.status || !!filters.search || !!filters.agentId
+
+  const onClearFilters = ()=>{
+     setFilter({
+         status:null,
+         agentId: "",
+         search: "",
+         page: 1
+        
+        })
+  }
     return (
     <>
     <NewMeetingtDialouge open={isDialogOpen} onOpenChange={setisDialougeOpen}></NewMeetingtDialouge>
@@ -21,12 +39,17 @@ const MeetingsHeader = () => {
         </div>
         <div className=' flex  items-center gap-2-x p-1'>
 
-          { true &&(
-            <Button variant="outline" size="sm" onClick={()=>{}}>
-              <XCircleIcon></XCircleIcon>
-              Clear
+          <MeetingSearchFilter></MeetingSearchFilter>
+           <StatusFilter></StatusFilter>
+           <MeetingAgentIdFilter></MeetingAgentIdFilter>
+           {isAnyFilterModified && (
+            <Button variant="outline" onClick={onClearFilters}>
+                <XCircleIcon>
+                 
+                </XCircleIcon>
+                Clear
             </Button>
-          )}
+           )}
         </div>
     </div>
     </>

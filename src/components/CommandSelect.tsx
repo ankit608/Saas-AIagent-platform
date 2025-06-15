@@ -33,6 +33,11 @@ const CommandSelect = ({
   classname
 }: Props) => {
   const [open, setOpen] = useState(false);
+   
+  const handleOpenChange = (value:boolean) =>{
+    onSearch?.(""),
+    setOpen(value)
+  }
 
   const selectedOption = options.find((option) => option.value === value);
 
@@ -52,7 +57,7 @@ const CommandSelect = ({
         <ChevronsUpDownIcon className="ml-2 h-4 w-4 opacity-50" />
       </Button>
 
-      <CommandDialogResponsive shouldFilter = {!onSearch} open={open} onOpenChange={setOpen}>
+      <CommandDialogResponsive shouldFilter = {!onSearch} open={open} onOpenChange={handleOpenChange}>
         <CommandInput
           placeholder="Search..."
           onValueChange={onSearch}
