@@ -1,6 +1,6 @@
 import { createTRPCRouter,baseProcedure, protectedProcedure } from "@/app/trpc/init";
 import { db } from "@/db";
-import { meetings } from "@/db/schema";
+import { agents, meetings } from "@/db/schema";
 
 import { TRPCError } from "@trpc/server";
 import { create } from "domain";
@@ -69,8 +69,10 @@ export const MeetingsRouter = createTRPCRouter({
         
           const data = await db.select({
                meetingCount: sql<number>`5`,
-               ...getTableColumns(meetings)
-          }).from(meetings).where(
+               ...getTableColumns(meetings),
+               agent: agents,
+               duration: sql<number>`EXTRACT(EPOCH FROM(ended_at-started_at))`.as("duration"),
+          }).from(meetings).innerJoin(agents,eq(meetings.agentId, agents.id)).where(
                and(
                     eq(meetings.userId, ctx.auth.user.id),
                     search?ilike(meetings.name,`${input?.search}%`): undefined,
@@ -79,7 +81,7 @@ export const MeetingsRouter = createTRPCRouter({
 
         
 
-          const total = await db.select({count:count()}).from(meetings).where(
+          const total = await db.select({count:count()}).from(meetings).innerJoin(agents,eq(meetings.agentId, agents.id)).where(
                and(eq(
                     meetings.userId, ctx.auth.user.id
                ),search?ilike(meetings.name, `%${search}%`):undefined)
