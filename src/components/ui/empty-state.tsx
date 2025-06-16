@@ -4,6 +4,7 @@ import Image from "next/image";
 interface Props{
      title: string;
      description: string;
+     image?: string
 }
 
 
