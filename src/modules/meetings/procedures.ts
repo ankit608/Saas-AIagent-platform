@@ -33,6 +33,21 @@ export const MeetingsRouter = createTRPCRouter({
 
              return updateMeeting
          }),
+           remove:protectedProcedure.input(z.object({
+            id:z.string()
+           }))
+         .mutation(async({ctx,input})=>{
+             const [RemovedMeeting] = await db.delete(meetings).where(and(eq(meetings.id,input.id), eq(meetings.userId,ctx.auth.user.id))).returning()
+
+             if(!RemovedMeeting){
+                 throw new TRPCError({
+                     code: "NOT_FOUND",
+                     message:" Meeting does not exist"
+                 })
+             }
+
+             return RemovedMeeting
+         }),
 
      create: protectedProcedure.input(meetingsInsertSchema).mutation(async({input,ctx})=>{
         console.log("helloo")
@@ -50,8 +65,11 @@ export const MeetingsRouter = createTRPCRouter({
      getOne: protectedProcedure.input(z.object({id:z.string()})).query(async({input,ctx})=>{
            const [existingMeeting] = await db.select({
                    meetingCount: sql<number> `5`,
-              ...getTableColumns(meetings)
-           }).from(meetings).where(and (eq(meetings.id,input.id), eq(meetings.userId,ctx.auth.user.id)))
+              ...getTableColumns(meetings),
+              agent: agents,
+              duration: sql<number>`EXTRACT(EPOCH FROM(ended_at-started_at))`.as("duration"),
+           
+           }).from(meetings).innerJoin(agents, eq(meetings.agentId,agents.id)).where(and (eq(meetings.id,input.id), eq(meetings.userId,ctx.auth.user.id)))
               
 
            if(!existingMeeting){

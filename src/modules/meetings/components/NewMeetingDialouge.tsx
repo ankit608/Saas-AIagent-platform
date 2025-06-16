@@ -16,10 +16,10 @@ import { useRouter } from 'next/navigation';
        <ResponSiveDialog title="new Meeting" description='Create a new Meeting'open={open} onOpenChange={onOpenChange}>
          <MeetingForm onSuccess={(id)=>{
              onOpenChange(false)
-             router.push(`/meetings/${id}`)
+             router.push(`/meetings`)
          }}
          
-         onCancel={()=>onOpenChange}></MeetingForm>
+         onCancel={()=>onOpenChange(false)}></MeetingForm>
        </ResponSiveDialog>
    )
  }
