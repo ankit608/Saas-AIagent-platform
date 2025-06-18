@@ -76,6 +76,7 @@ const CallConnect = ({meetingId,meetingName,userId,userName, userImage}:Props) =
   return (
      <StreamVideo client={client}>
           <StreamCall call={Call}>
+         
             <CallUi meetingName={meetingName}></CallUi>
           </StreamCall>
      </StreamVideo>

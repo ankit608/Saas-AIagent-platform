@@ -81,11 +81,12 @@ export const MeetingsRouter = createTRPCRouter({
          
           console.log(createdMeeting)
           const call = streamvideo.video.call("default", createdMeeting[0].id)
+          console.log(createdMeeting.indexOf,"MeetingIndexOf")
           await call.create({
                data:{
                     created_by_id: ctx.auth.user.id,
                     custom:{
-                          meetingId: createdMeeting.indexOf,
+                          meetingId: createdMeeting[0].id,
                           meetingName: createdMeeting[0].name,
                     },
 

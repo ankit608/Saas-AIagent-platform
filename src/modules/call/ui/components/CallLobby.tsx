@@ -15,7 +15,14 @@ interface Props{
 
 const DisabledVideoPreview = () =>{
      const {data} = authClient.useSession();
+       const image = Generateavatar({
+                 seed:data?.user.name??"",
+                 variant: "initials"
 
+
+              })
+
+    console.log(image,"image.....")
      return(
         <DefaultVideoPlaceholder participant={{
              name:data?.user.name ??"",

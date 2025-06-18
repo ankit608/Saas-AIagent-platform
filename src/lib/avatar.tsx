@@ -8,7 +8,7 @@ interface Props{
     variant: "botttsNeutral"| "initials"
 }
 
-const Generateavatar = ({seed, variant}:Props) => {
+const Generateavatar = ({seed, variant}:Props):string => {
     let avatar
     if(variant==="botttsNeutral"){
         avatar = createAvatar(botttsNeutral,{seed})
@@ -18,7 +18,7 @@ const Generateavatar = ({seed, variant}:Props) => {
 
 
   return (
-     avatar.toDataUri
+     avatar.toDataUri()
   )
 }
 

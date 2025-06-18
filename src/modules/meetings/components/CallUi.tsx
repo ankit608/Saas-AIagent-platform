@@ -14,7 +14,8 @@ const CallUi = ({meetingName}:Props) => {
 
    const handleJoin = async()=>{
      if(!call) return;
-     await call.join();
+     const a =await call.join();
+     console.log(a,"see the call join")
 
      setShow("call");
    }
