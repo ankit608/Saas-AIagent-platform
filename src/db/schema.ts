@@ -1,6 +1,7 @@
 import { timeStamp } from "console";
 import { pgTable, text, timestamp, boolean, pgEnum } from "drizzle-orm/pg-core";
 import {nanoid} from "nanoid"
+import { record } from "zod";
 
 
 export const meetingStatus  =  pgEnum("meeting_status",["upcoming","active","completed","processing","cancelled"])
@@ -76,7 +77,8 @@ export const meetings= pgTable("meetings",{
     status: meetingStatus("status").notNull().default("upcoming"),
       startedAt: timestamp("started_at"),
       endendAt: timestamp("ended_at"),
-      transcriptUrl: text("recording_url"),
+      transcriptUrl: text("transcript_url"),
+     recordingUrl: text("recording_url"),
       summary: text("summary"),
       createdAt: timestamp("created_at").notNull().defaultNow(),
       updatedAt: timestamp("updated_at").notNull().defaultNow()
