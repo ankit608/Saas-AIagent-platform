@@ -34,7 +34,7 @@ const MeetingIdview = ({meetingId}:Props) => {
     const  removeMeeting = useMutation(
         trpc.meetings.remove.mutationOptions({
              onSuccess:()=>{
-                     queryClient.invalidateQueries(trpc.meetings.getMany.queryOptions({}))
+                     queryClient.invalidateQueries(trpc.meetings.getMany.queryOptions())
                      router.push("/meetings")
              },
 
@@ -80,7 +80,7 @@ const MeetingIdview = ({meetingId}:Props) => {
 export default MeetingIdview
 
 
-export const MeetingLoadingState = () =>{
+ export const MeetingLoadingState = () =>{
       
     return(
          <LoadingState title='Loading Meeting'  description='This may take few seconds'></LoadingState>
@@ -88,7 +88,7 @@ export const MeetingLoadingState = () =>{
 }
 
 
-export const MeetingErrorState = () =>{
+ export const MeetingErrorState = () =>{
       
     return(
          <ErrorState title='Error Loading Meeting'  description='please try later'></ErrorState>

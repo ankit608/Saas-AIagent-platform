@@ -8,7 +8,7 @@ import { agents,meetings} from "@/db/schema"
 import {streamvideo} from "@/lib/stream-video"
 import { NextRequest, NextResponse } from "next/server"
 import { error } from "console"
-import { inngest } from "@/inngest/client"
+ import { inngest } from "@/inngest/client"
 
 
 

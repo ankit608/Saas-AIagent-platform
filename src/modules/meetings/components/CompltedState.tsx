@@ -3,7 +3,7 @@ import { MeetingGetOne } from '../types';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import { BookOpenTextIcon, FileTextIcon, FileVideoIcon, ClockFadingIcon, Sparkles, SparklesIcon} from 'lucide-react';
-import Markdown from "react-Markdown"
+import Markdown from "react-markdown"
 import Generateavatar from '@/lib/avatar';
 import Link from 'next/link';
 import { GeneratedAvatar } from '@/components/ui/generated-avatar';

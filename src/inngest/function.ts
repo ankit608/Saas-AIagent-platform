@@ -37,8 +37,8 @@ export const MeetingProcessing  = inngest.createFunction(
      {event: "meetings/processing"},
 
      async ({event,step})=>{
-
-         const response = await step.run("fetch_transcript",async()=>{
+       
+               try{ const response = await step.run("fetch_transcript",async()=>{
           const res = await fetch(event.data.transcriptUrl);
         
            if (!res.ok) {
@@ -118,6 +118,9 @@ const agentspeaker = await db
                  summary: (output[0] as TextMessage).content as string,
                  status: "completed"
              }).where(eq(meetings.id,event.data.meetingId))
-         })
+         })}catch(error){
+             console.log(error,"ingest_error")
+         }
+        
      }
 )

@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { z } from 'zod';
 
-import { AgentGetOne } from "../types";
 import { useTRPC } from '@/app/trpc/client';
 import { useRouter } from 'next/navigation';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { agentInsertSchema, meetingsInsertSchema } from '../schema';
+import {  meetingsInsertSchema } from '../schema';
 import CommandSelect from '@/components/CommandSelect';
 
 import { useForm } from 'react-hook-form';
@@ -50,7 +49,7 @@ const MeetingForm = ({ onSuccess, onCancel, initialsValues }: MeetingFormProps) 
   const createMeeting = useMutation(
     trpc.meetings.create.mutationOptions({
       onSuccess: (data) => {
-        queryClient.invalidateQueries(trpc.meetings.getMany.queryOptions({}));
+        queryClient.invalidateQueries(trpc.meetings.getMany.queryOptions());
 
           if(initialsValues?.id){
              queryClient.invalidateQueries(
@@ -58,7 +57,7 @@ const MeetingForm = ({ onSuccess, onCancel, initialsValues }: MeetingFormProps) 
              )
           }
 
-          onSuccess?.(data?.id)
+          onSuccess?.(data[0]?.id)
       },
       onError: (error) => {
          toast.error(error.message)
@@ -70,7 +69,7 @@ const MeetingForm = ({ onSuccess, onCancel, initialsValues }: MeetingFormProps) 
    const UpdateMeeting = useMutation(
     trpc.meetings.update.mutationOptions({
       onSuccess: (data) => {
-        queryClient.invalidateQueries(trpc.meetings.getMany.queryOptions({}));
+        queryClient.invalidateQueries(trpc.meetings.getMany.queryOptions());
 
           if(initialsValues?.id){
              queryClient.invalidateQueries(
@@ -78,7 +77,7 @@ const MeetingForm = ({ onSuccess, onCancel, initialsValues }: MeetingFormProps) 
              )
           }
 
-          onSuccess?.(data.id)
+          onSuccess?.(data[0].id)
       },
       onError: (error) => {
          toast.error(error.message)
@@ -99,7 +98,7 @@ const MeetingForm = ({ onSuccess, onCancel, initialsValues }: MeetingFormProps) 
   const isEdit = !!initialsValues?.id;
   const isPending = createMeeting.isPending || UpdateMeeting.isPending;
 
-  const submit = (values: z.infer<typeof agentInsertSchema>) => {
+  const submit = (values: z.infer<typeof meetingsInsertSchema>) => {
     if (isEdit) {
         UpdateMeeting.mutate({...values, id: initialsValues.id})
     } else {

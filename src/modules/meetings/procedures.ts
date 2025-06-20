@@ -147,7 +147,7 @@ export const MeetingsRouter = createTRPCRouter({
      getMany: protectedProcedure.input(z.object({
           page:z.number().default(DEFAULT_PAGE),
           pageSize:z.number().min(MIN_PAGE_SIZE).max(MAX_PAGE_SIZE).default(DEFAULT_PAGE_SIZE),
-           search: z.string().nullish(),
+           search: z.string(),
            agentId: z.string().nullish(),
            status: z.enum([
             MeetingStatus.Upcoming,
@@ -158,7 +158,7 @@ export const MeetingsRouter = createTRPCRouter({
            ]).nullish()
 
      }).optional()).query(async ({ctx,input})=>{
-          const {search, page, pageSize, status, agentId} = input;
+          const {search, page=DEFAULT_PAGE, pageSize=DEFAULT_PAGE_SIZE, status, agentId} = input || {};
           console.log(search,page,pageSize)
         
           const data = await db.select({

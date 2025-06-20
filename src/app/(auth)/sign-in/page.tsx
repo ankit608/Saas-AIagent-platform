@@ -6,15 +6,7 @@
 import { redirect } from 'next/navigation'
  
  const page = async() => {
-  const session = await auth.api.getSession({
-       headers: await headers(),
-    });
-  
-    if(!!session){
-       return(
-          redirect("/")
-       )
-    }
+
    return (
       <SignInview></SignInview>
    )
