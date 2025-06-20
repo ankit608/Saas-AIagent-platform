@@ -145,6 +145,9 @@ export async function POST(req:NextRequest){
           }
             
           console.log(updateMeeting,"updateMeeting......")
+
+         console.log("process.env.OPENAI_API_KEY:", process.env.OPENAI_API_KEY ? "Set" : "Not Set or Empty");
+    console.log("Value length of OPENAI_API_KEY:", process.env.OPENAI_API_KEY?.length);
           await inngest.send({name: "meetings/processing",
              data: {
                meetingId: updateMeeting[0].id,
