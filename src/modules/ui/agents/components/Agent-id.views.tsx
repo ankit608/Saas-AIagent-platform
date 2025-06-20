@@ -76,7 +76,7 @@ const AgentIdView = ({agentId}:Props) => {
   )
 }
 
-export const AgentsIdViewLoading = ({agentId}:Props) =>{
+export const AgentsIdViewLoading = () =>{
     return (
       <><LoadingState title="Loading Agents" description="This may take Few seconds"></LoadingState>
   

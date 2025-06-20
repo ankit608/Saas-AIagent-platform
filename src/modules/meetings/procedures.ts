@@ -145,21 +145,22 @@ export const MeetingsRouter = createTRPCRouter({
            return existingMeeting
      }),
      getMany: protectedProcedure.input(z.object({
-          page:z.number().default(DEFAULT_PAGE),
-          pageSize:z.number().min(MIN_PAGE_SIZE).max(MAX_PAGE_SIZE).default(DEFAULT_PAGE_SIZE),
-           search: z.string().nullish(),
-           agentId: z.string().nullish(),
-           status: z.enum([
-            MeetingStatus.Upcoming,
-            MeetingStatus.Processing,
-            MeetingStatus.Completed,
-            MeetingStatus.Cancelled,
-            MeetingStatus.Active
+           page: z.number().default(DEFAULT_PAGE),
+  pageSize: z.number().min(MIN_PAGE_SIZE).max(MAX_PAGE_SIZE).default(DEFAULT_PAGE_SIZE),
+  search: z.string().nullish(),
+  agentId: z.string().nullish(),
+  status: z.enum([
+    MeetingStatus.Upcoming,
+    MeetingStatus.Processing,
+    MeetingStatus.Completed,
+    MeetingStatus.Cancelled,
+    MeetingStatus.Active
            ]).nullish()
 
      }).optional()).query(async ({ctx,input})=>{
-          const {search, page, pageSize, status, agentId} = input;
-          console.log(search,page,pageSize)
+          const { search,  page = DEFAULT_PAGE,
+  pageSize = DEFAULT_PAGE_SIZE, status, agentId} = input ?? {};;
+          console.log(page,pageSize)
         
           const data = await db.select({
                meetingCount: sql<number>`5`,

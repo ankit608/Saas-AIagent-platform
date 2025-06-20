@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { z } from 'zod';
 
-import { AgentGetOne } from "../types";
+import { AgentGetOne } from '@/modules/ui/agents/types';
 import { useTRPC } from '@/app/trpc/client';
 import { useRouter } from 'next/navigation';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { agentInsertSchema, meetingsInsertSchema } from '../schema';
+import {  meetingsInsertSchema } from '../schema';
 import CommandSelect from '@/components/CommandSelect';
+import { agentInsertSchema } from '@/modules/ui/agents/schema';
 
 import { useForm } from 'react-hook-form';
 import { Input } from "@/components/ui/input";
@@ -58,7 +59,7 @@ const MeetingForm = ({ onSuccess, onCancel, initialsValues }: MeetingFormProps) 
              )
           }
 
-          onSuccess?.(data?.id)
+          onSuccess?.(data[0]?.id)
       },
       onError: (error) => {
          toast.error(error.message)
@@ -78,7 +79,7 @@ const MeetingForm = ({ onSuccess, onCancel, initialsValues }: MeetingFormProps) 
              )
           }
 
-          onSuccess?.(data.id)
+          onSuccess?.(data[0]?.id)
       },
       onError: (error) => {
          toast.error(error.message)
@@ -99,7 +100,7 @@ const MeetingForm = ({ onSuccess, onCancel, initialsValues }: MeetingFormProps) 
   const isEdit = !!initialsValues?.id;
   const isPending = createMeeting.isPending || UpdateMeeting.isPending;
 
-  const submit = (values: z.infer<typeof agentInsertSchema>) => {
+  const submit = (values: z.infer<typeof meetingsInsertSchema>) => {
     if (isEdit) {
         UpdateMeeting.mutate({...values, id: initialsValues.id})
     } else {

@@ -53,14 +53,14 @@ void queryClient.prefetchQuery(
 }
 
 
-export const MeetingViewLoading = () =>{
+ const MeetingViewLoading = () =>{
     return (
       <LoadingState title="Loading Agents" description="This may take Few seconds"></LoadingState>
     )
 }
 
 
-export const MeetingViewError = () =>{
+ const MeetingViewError = () =>{
     return (
         <ErrorState title="Error Loading Agents" description="Something went wrong"></ErrorState>
     )

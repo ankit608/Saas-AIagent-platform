@@ -149,7 +149,8 @@ export async function POST(req:NextRequest){
              data: {
                meetingId: updateMeeting[0].id,
                transcriptUrl: updateMeeting[0].transcriptUrl
-             }
+             },
+             
           })
      }else if(eventType === "call.recording_ready"){
       const event = payload as CallRecordingReadyEvent;
