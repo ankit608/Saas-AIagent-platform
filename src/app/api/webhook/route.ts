@@ -8,7 +8,7 @@ import { agents,meetings} from "@/db/schema"
 import {streamvideo} from "@/lib/stream-video"
 import { NextRequest, NextResponse } from "next/server"
 import { error } from "console"
-//  import { inngest } from "@/inngest/client"
+ import { inngest } from "@/inngest/client"
 
 
 
@@ -145,12 +145,12 @@ export async function POST(req:NextRequest){
           }
             
           console.log(updateMeeting,"updateMeeting......")
-          // await inngest.send({name: "meetings/processing",
-          //    data: {
-          //      meetingId: updateMeeting[0].id,
-          //      transcriptUrl: updateMeeting[0].transcriptUrl
-          //    }
-          // })
+          await inngest.send({name: "meetings/processing",
+             data: {
+               meetingId: updateMeeting[0].id,
+               transcriptUrl: updateMeeting[0].transcriptUrl
+             }
+          })
      }else if(eventType === "call.recording_ready"){
       const event = payload as CallRecordingReadyEvent;
        const meetingId = event.call_cid.split(":")[1]
