@@ -7,6 +7,7 @@ import {createAgent,openai, TextMessage}  from "@inngest/agent-kit"
 
 import JSONL from "jsonl-parse-stringify"
 import { Users } from "lucide-react";
+import { getOpenAiApiKey } from "@/lib/utils";
 
 
 const summarizer = createAgent({
@@ -29,7 +30,7 @@ const summarizer = createAgent({
          - Feature X automatically doses Y]
          - Mention of itegration Z
       `.trim(),
-      model: openai({model: "gpt-4o", apiKey: process.env.OPENAI_API_KEY!})
+      model: openai({model: "gpt-4o", apiKey: getOpenAiApiKey()})
 })
 console.log( process.env.OPENAI_API_KEY,"APIKEY")
 export const MeetingProcessing  = inngest.createFunction(
