@@ -18,7 +18,7 @@ export function getInngestKey(): string {
   const apiKey = process.env.INNGEST_EVENT_KEY;
 
   if (!apiKey || apiKey.trim() === '') {
-    throw new Error("Inngest is not set or is empty in environment variables.");
+    throw new Error("Inngest is not set or is empty in environment variables..");
   }
   return apiKey;
 }
