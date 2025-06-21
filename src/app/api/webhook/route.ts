@@ -96,7 +96,7 @@ export async function POST(req:NextRequest){
          console.log(existingAgent,"existingAgenttttt")
      const realtimeClient = await streamvideo.video.connectOpenAi({
            call,
-           openAiApiKey: getOpenAiApiKey(),
+           openAiApiKey: process.env.OPENAI_API_KEY || "",
            agentUserId: existingAgent.id
 
      });
