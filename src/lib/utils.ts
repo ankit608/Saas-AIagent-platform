@@ -6,7 +6,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function getOpenAiApiKey(): string {
-  const apiKey = process.env.OPENAI_API_KEY;
+  const apiKey = process.env.NEXT_PUBLIC_OPENAI_API_KEY;
 
   if (!apiKey || apiKey.trim() === '') {
     throw new Error("OPENAI_API_KEY is not set or is empty in environment variables.");
@@ -15,7 +15,7 @@ export function getOpenAiApiKey(): string {
 }
 
 export function getInngestKey(): string {
-  const apiKey = process.env.INNGEST_EVENT_KEY;
+  const apiKey = process.env.NEXT_PUBLIC_INNGEST_EVENT_KEY;
 
   if (!apiKey || apiKey.trim() === '') {
     throw new Error("Inngest is not set or is empty in environment variables..");
