@@ -9,6 +9,8 @@ import {streamvideo} from "@/lib/stream-video"
 import { NextRequest, NextResponse } from "next/server"
 import { error } from "console"
  import { inngest } from "@/inngest/client"
+ import { getInngestKey } from "@/lib/utils"
+ import { getOpenAiApiKey } from "@/lib/utils"
 
 
 
@@ -94,7 +96,7 @@ export async function POST(req:NextRequest){
          console.log(existingAgent,"existingAgenttttt")
      const realtimeClient = await streamvideo.video.connectOpenAi({
            call,
-           openAiApiKey: process.env.OPENAI_API_KEY!,
+           openAiApiKey: getOpenAiApiKey(),
            agentUserId: existingAgent.id
 
      });
