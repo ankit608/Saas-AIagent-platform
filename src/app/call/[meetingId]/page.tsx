@@ -41,7 +41,7 @@ interface Props{
                  </ErrorBoundary>
             </Suspense> */}
 
-            <CallView meetingId={meetingId}></CallView>
+             <CallView meetingId={meetingId}></CallView> 
            
          </HydrationBoundary>
     )

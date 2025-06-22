@@ -30,9 +30,9 @@ const summarizer = createAgent({
          - Feature X automatically doses Y]
          - Mention of itegration Z
       `.trim(),
-      model: openai({model: "gpt-4o", apiKey: process.env.OPENAI_API_KEY})
+      model: openai({model: "gpt-4o", apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY})
 })
-console.log( process.env.OPENAI_API_KEY,"APIKEY")
+console.log( process.env.NEXT_PUBLIC_OPENAI_API_KEY,"APIKEY")
 export const MeetingProcessing  = inngest.createFunction(
      {id: "meetings/processing"},
      {event: "meetings/processing"},

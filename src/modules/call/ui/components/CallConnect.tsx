@@ -1,3 +1,4 @@
+'use client'
 import React, { useEffect, useState } from 'react'
 import {Call, CallingState,  StreamCall, StreamVideo, StreamVideoClient} from "@stream-io/video-react-sdk"
 
@@ -18,6 +19,7 @@ interface Props{
 }
 
 const CallConnect = ({meetingId,meetingName,userId,userName, userImage}:Props) => {
+   if (typeof window === 'undefined') return;
       console.log(userId,"userId")
     const trpc = useTRPC()
     const {mutateAsync: generateToken} = useMutation(
@@ -50,6 +52,7 @@ const CallConnect = ({meetingId,meetingName,userId,userName, userImage}:Props) =
    const [Call,SetCall] = useState<Call>()
 
    useEffect(()=>{
+     if (typeof window === 'undefined') return;
      if(!client) return;
      const _call= client.call("default",meetingId)
      _call.camera.disable()
