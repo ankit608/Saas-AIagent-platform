@@ -39,14 +39,12 @@ interface Props{
    
     return(
          <HydrationBoundary state={dehydrate(queryClient)}>
-            {/* <Suspense fallback={<p>Loading...</p>}>
+             <Suspense fallback={<p>Loading...</p>}>
 
-                 <ErrorBoundary>
+                   <CallView meetingId={meetingId}></CallView> 
+            </Suspense> 
 
-                 </ErrorBoundary>
-            </Suspense> */}
-
-             <CallView meetingId={meetingId}></CallView> 
+          
            
          </HydrationBoundary>
     )
