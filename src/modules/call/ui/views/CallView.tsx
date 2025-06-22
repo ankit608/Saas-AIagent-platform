@@ -11,6 +11,8 @@ interface Props {
 }
 
 const CallView = ({meetingId}:Props) => {
+
+  console.log("Enterd thte call View")
     const trpc = useTRPC()
 
     const {data} = useSuspenseQuery(trpc.meetings.getOne.queryOptions({id: meetingId}))

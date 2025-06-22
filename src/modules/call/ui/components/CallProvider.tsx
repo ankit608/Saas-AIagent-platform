@@ -11,7 +11,7 @@ interface Props{
      meetingName: string
 }
 const CallProvider =  ({meetingId,meetingName}:Props) => {
-  
+    console.log("Enter into call provider... where the user getting undefined")
     const {data,isPending} =  authClient.useSession();
 
 

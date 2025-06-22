@@ -21,6 +21,7 @@ interface Props{
          headers: await headers()
     })
     const {meetingId} = await params;
+     console.log(meetingId,"meetingId")
 
     if(!session){
          redirect("/sign-in");
@@ -31,6 +32,8 @@ interface Props{
     void queryClient.prefetchQuery(
          trpc.meetings.getOne.queryOptions({id:meetingId})
     )
+
+    console.log("entering to hydration")
    
     return(
          <HydrationBoundary state={dehydrate(queryClient)}>
