@@ -31,7 +31,7 @@ const CallConnect = ({meetingId,meetingName,userId,userName, userImage}:Props) =
      const [client,setClient] = useState<StreamVideoClient>();
 
      useEffect(()=>{
-
+       console.log(process.env.NEXT_PUBLIC_STREAM_VIDEO_API_KEY,"API...")
       if (typeof window === 'undefined') return;
         const _client = new StreamVideoClient({
              apiKey: process.env.NEXT_PUBLIC_STREAM_VIDEO_API_KEY!,
