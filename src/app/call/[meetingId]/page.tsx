@@ -8,19 +8,22 @@ import { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import CallView from "@/modules/call/ui/views/CallView";
 
-interface Props{
-     params: Promise<{
-        meetingId: string
-     }>
+// interface Props{
+//      params: Promise<{
+//         meetingId: string
+//      }>
 
 
+// }
+interface Props {
+  params: { meetingId: string }
 }
 
  const Page = async({params}:Props)=>{
     const session = await auth.api.getSession({
          headers: await headers()
     })
-    const {meetingId} = await params;
+    const {meetingId} = params;
      console.log(meetingId,"meetingId")
 
     if(!session){
@@ -34,6 +37,7 @@ interface Props{
     )
 
     console.log("entering to hydration")
+ 
    
     return(
          <HydrationBoundary state={dehydrate(queryClient)}>
