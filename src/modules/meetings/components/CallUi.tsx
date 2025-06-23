@@ -12,13 +12,21 @@ const CallUi = ({meetingName}:Props) => {
     const call = useCall()
    const [show,setShow] = useState<"lobby"|"call"|"ended">("lobby")
 
-   const handleJoin = async()=>{
-     if(!call) return;
-     const a =await call.join();
-     console.log(a,"see the call join")
+  const [joined, setJoined] = useState(false);
 
-     setShow("call");
-   }
+const handleJoin = async () => {
+  if (!call || joined) return;
+
+  try {
+    const result = await call.join();
+    console.log(result, "see the call join");
+    setJoined(true);
+    setShow("call");
+  } catch (err) {
+    console.error("Failed to join call:", err);
+  }
+};
+
 
    const handleLeave = () =>{
      if(!call)return;
